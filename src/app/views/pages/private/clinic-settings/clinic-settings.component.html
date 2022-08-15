@@ -1,0 +1,232 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active"><a routerLink="./" routerLinkActive="active">{{ 'CLINIC_SETTINGS.CLINIC_SETTINGS' | translate }}</a></li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="submitted">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+    <div id="successMessage"> {{ success.message | translate }} </div>
+  </div>
+
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="card-title">{{ 'CLINIC_SETTINGS.CLINIC_SETTINGS' | translate }}</h6>
+
+            <form #editClinicSettings="ngForm">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="name" class="form-label">{{ 'CLINIC_SETTINGS.NAME' | translate }}</label>
+                  <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      name="name"
+                      placeholder="{{ 'CLINIC_SETTINGS.NAME' | translate }}"
+                      [(ngModel)]="clinicSettings.name"
+                      #name="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': name.invalid && name.touched
+                      }">
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="description" class="form-label">{{ 'CLINIC_SETTINGS.DESCRIPTION' | translate }}</label>
+                    <textarea
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        placeholder="{{ 'CLINIC_SETTINGS.DESCRIPTION' | translate }}"
+                        [(ngModel)]="clinicSettings.description"
+                        #description="ngModel"
+                        rows="3"
+                        required
+                        [ngClass]="{
+                          'is-invalid': description.invalid && description.touched
+                        }"></textarea>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="address" class="form-label">{{ 'CLINIC_SETTINGS.ADDRESS' | translate }}</label>
+                    <textarea
+                        class="form-control"
+                        id="address"
+                        name="address"
+                        placeholder="{{ 'CLINIC_SETTINGS.ADDRESS' | translate }}"
+                        [(ngModel)]="clinicSettings.address"
+                        #address="ngModel"
+                        rows="3"
+                        required
+                        [ngClass]="{
+                          'is-invalid': address.invalid && address.touched
+                        }"></textarea>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="primaryPhone" class="form-label">{{ 'CLINIC_SETTINGS.PRIMARY_PHONE' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="primaryPhone"
+                        name="primaryPhone"
+                        placeholder="{{ 'CLINIC_SETTINGS.PRIMARY_PHONE' | translate }}"
+                        [(ngModel)]="clinicSettings.primaryPhone"
+                        #primaryPhone="ngModel"
+                        required
+                        [ngClass]="{
+                          'is-invalid': primaryPhone.invalid && primaryPhone.touched
+                        }">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="secondaryPhone" class="form-label">{{ 'CLINIC_SETTINGS.SECONDARY_PHONE' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="secondaryPhone"
+                        name="secondaryPhone"
+                        placeholder="{{ 'CLINIC_SETTINGS.SECONDARY_PHONE' | translate }}"
+                        [(ngModel)]="clinicSettings.secondaryPhone"
+                        #secondaryPhone="ngModel"
+                        required
+                        [ngClass]="{
+                          'is-invalid': secondaryPhone.invalid && secondaryPhone.touched
+                        }">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">{{ 'CLINIC_SETTINGS.EMAIL' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        placeholder="{{ 'CLINIC_SETTINGS.EMAIL' | translate }}"
+                        [(ngModel)]="clinicSettings.email"
+                        #email="ngModel"
+                        required
+                        [ngClass]="{
+                          'is-invalid': email.invalid && email.touched
+                        }">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="website" class="form-label">{{ 'CLINIC_SETTINGS.WEBSITE' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="website"
+                        name="website"
+                        placeholder="{{ 'CLINIC_SETTINGS.WEBSITE' | translate }}"
+                        [(ngModel)]="clinicSettings.websiteUrl"
+                        #website="ngModel"
+                        required
+                        [ngClass]="{
+                          'is-invalid': website.invalid && website.touched
+                        }">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="facebook" class="form-label">{{ 'CLINIC_SETTINGS.FACEBOOK' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="facebook"
+                        name="facebook"
+                        placeholder="{{ 'CLINIC_SETTINGS.FACEBOOK' | translate }}"
+                        [(ngModel)]="clinicSettings.facebookUrl"
+                        #facebook="ngModel"
+                        required
+                        [ngClass]="{
+                          'is-invalid': facebook.invalid && facebook.touched
+                        }">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="instagram" class="form-label">{{ 'CLINIC_SETTINGS.INSTAGRAM' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="instagram"
+                        name="instagram"
+                        placeholder="{{ 'CLINIC_SETTINGS.INSTAGRAM' | translate }}"
+                        [(ngModel)]="clinicSettings.instagramUrl"
+                        #instagram="ngModel"
+                        required
+                        [ngClass]="{
+                          'is-invalid': instagram.invalid && instagram.touched
+                        }">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="twitter" class="form-label">{{ 'CLINIC_SETTINGS.TWITTER' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="twitter"
+                        name="twitter"
+                        placeholder="{{ 'CLINIC_SETTINGS.TWITTER' | translate }}"
+                        [(ngModel)]="clinicSettings.twitterUrl"
+                        #twitter="ngModel"
+                        required
+                        [ngClass]="{
+                          'is-invalid': twitter.invalid && twitter.touched
+                        }">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="twitter" class="form-label">{{ 'CLINIC_SETTINGS.LINKEDIN' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="linkedin"
+                        name="linkedin"
+                        placeholder="{{ 'CLINIC_SETTINGS.LINKEDIN' | translate }}"
+                        [(ngModel)]="clinicSettings.linkedinUrl"
+                        #linkedin="ngModel"
+                        required
+                        [ngClass]="{
+                          'is-invalid': linkedin.invalid && linkedin.touched
+                        }">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="youtube" class="form-label">{{ 'CLINIC_SETTINGS.YOUTUBE' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="youtube"
+                        name="youtube"
+                        placeholder="{{ 'CLINIC_SETTINGS.YOUTUBE' | translate }}"
+                        [(ngModel)]="clinicSettings.youtubeUrl"
+                        #youtube="ngModel"
+                        required
+                        [ngClass]="{
+                          'is-invalid': youtube.invalid && youtube.touched
+                        }">
+                  </div>
+                </div>
+
+              <div class="d-flex justify-content-end">
+                  <button class="btn btn-primary" (click)="updateClinicSettings()">{{ 'CLINIC_SETTINGS.CLINIC_SETTINGS_UPDATE' | translate }}</button>
+              </div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+<!-- <nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin/prescriptions" routerLinkActive="active">{{ 'PRESCRIPTIONS.PRESCRIPTIONS' | translate }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ 'PRESCRIPTIONS.PRESCRIPTION_ADD' | translate }}</li>
+    </ol>
+</nav> 
+
+<div class="row">
+  <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="submitted">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+    <div id="successMessage"> {{ success.message | translate }}</div>
+  </div>
+<div class="col-md-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-end">
+        <a class="btn btn-success" (click)="add()"><i class="fa-regular fa-square-plus me-2"></i>{{ 'PRESCRIPTIONS.PRESCRIPTION_ADD' | translate }}</a>
+      </div> -->
+
+    <div class="addForm">
+      <div class="card-body"> 
+        <h6 class="card-title">{{ 'PRESCRIPTIONS.PRESCRIPTION_ADD' | translate }}</h6> 
+        <form #addPrescription="ngForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="medicationId" class="form-label">{{ 'PRESCRIPTIONS.MEDICATION' | translate }}</label>
+                <select
+                  class="form-control"
+                  id="medicationId"
+                  name="medicationId"
+                  [(ngModel)]="MedicationRules.medication.id"
+                  required>
+                  <option value="" disabled selected>-- {{ 'PRESCRIPTIONS.MEDICATION_CHOOSE' | translate  }} --</option>
+                  <option *ngFor="let medication of medications" [value]="medication.id">
+                    {{ medication.name }}
+                  </option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="timeRestriction" class="form-label">{{ 'PRESCRIPTIONS.TIME_RESCTRICTION' | translate }}</label>
+              <input type="text"
+                      class="form-control"
+                      id="timeRestriction"
+                      name="timeRestriction"
+                      placeholder="{{ 'PRESCRIPTIONS.TIME_RESCTRICTION' | translate }}"
+                      [(ngModel)]="MedicationRules.timeRestriction"
+                      required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="maxDrugUnits" class="form-label">{{ 'PRESCRIPTIONS.MAX_DRUG_UNITS' | translate }}</label>
+              <input type="number"
+                      min="1"
+                      class="form-control"
+                      id="maxDrugUnits"
+                      name="maxDrugUnits"
+                      placeholder="{{ 'PRESCRIPTIONS.MAX_DRUG_UNITS' | translate }}"
+                      [(ngModel)]="MedicationRules.maxDrugUnits"
+                      required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="minDrugUnits" class="form-label">{{ 'PRESCRIPTIONS.MIN_DRUG_UNITS' | translate }}</label>
+              <input type="number"
+                      min="1"
+                      class="form-control"
+                      id="minDrugUnits"
+                      name="minDrugUnits"
+                      placeholder="{{ 'PRESCRIPTIONS.MIN_DRUG_UNITS' | translate }}"
+                      [(ngModel)]="MedicationRules.minDrugUnits"
+                      required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="foodRestriction" class="form-label">{{ 'PRESCRIPTIONS.FOOD_RESCTRICTION' | translate }}</label>
+              <textarea
+                      class="form-control"
+                      id="foodRestriction"
+                      name="foodRestriction"
+                      [(ngModel)]="MedicationRules.foodRestriction"
+                      required>
+              </textarea>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" (click)="savePrescription(basicModal)">{{ 'PRESCRIPTIONS.PRESCRIPTION_ADD' | translate }}</button>
+          </div>
+        </form>
+      </div>
+      <div class="mb-5"></div>
+    </div>
+    
+      <!-- <h6 class="card-title">{{ 'PRESCRIPTIONS.MEDICATIONS_RULE' | translate }}</h6>
+      <table datatable class="table table-hover table-bordered">
+        <thead>
+          <tr>
+              <th class="text-center">Medication</th>
+              <th class="text-center">Date Prescription</th>
+              <th class="text-center">Max Drug Units</th>
+              <th class="text-center">Min Drug Units</th>
+              <th class="text-center">Time Resctriction</th>
+              <th class="text-center">Food Resctriction</th>
+            </tr>
+          </thead>
+        <tbody>
+          <tr *ngFor="let medication_rule of medication_rules">
+            <td class="text-center">{{ medication_rule.medication.name }}</td>
+            <td class="text-center">{{ medication_rule.prescription.date }}</td>
+            <td class="text-center">{{ medication_rule.maxDrugUnits }} units/g</td>
+            <td class="text-center">{{ medication_rule.minDrugUnits }} units/g</td>
+            <td class="text-center">{{ medication_rule.timeRestriction }}</td>
+            <td class="text-center">{{ medication_rule.foodRestriction }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>-->
+
+
+<ng-template #basicModal let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" (click)="modal.close('close')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body flex-column text-center">
+    <div class="text-success" style="font-size: 64px;">
+      <i class="fa-solid fa-octagon-check"></i>
+    </div>
+    <h4 class="modal-title">Are you sure to confirm this prescription ?</h4>
+  </div>
+  <div class="modal-footer justify-content-end">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('save')">Save changes</button>
+  </div>
+</ng-template> 

@@ -1,0 +1,207 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="../" routerLinkActive="active">{{ 'STAFFS.STAFFS' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'STAFFS.STAFF_ADD' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="submitted">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+    <div id="successMessage"> {{ success.message | translate }} <a routerLink="../details/{{ success.staffId }}" routerLinkActive="active">{{ success.staffName }}</a> {{ 'login password:' | translate }} {{ success.generatedPassword }}</div>
+  </div>
+
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">{{ 'STAFFS.STAFF_ADD' | translate }}</h6>
+
+        <form #addStaff="ngForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <label for="profilePicture">{{ 'STAFFS.PROFILE_PICTURE' | translate }}</label>
+                  <input type="file"
+                        class="form-control d-none"
+                        #profilePicture
+                        id="profilePicture"
+                        name="profilePicture"
+                        accept="image/*"
+                        (change)="onImageChange($event)"
+                        >
+                </div>
+
+                <div>
+                  <button class="btn btn-primary" (click)="profilePicture.click()">{{ 'STAFFS.UPLOAD_PROFILE_PICTURE' | translate }}</button>
+                </div>
+              </div>
+
+              <div class="preview text-center" *ngIf="previewFile">
+                <img class="img-thumbnail" [src]="previewFile" style="width:250px; height:250px">
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="firstName" class="form-label">{{ 'STAFFS.FIRST_NAME' | translate }}</label>
+                  <input type="text"
+                          class="form-control"
+                          id="firstName"
+                          name="firstName"
+                          placeholder="{{ 'STAFFS.FIRST_NAME' | translate }}"
+                          [(ngModel)]="staff.firstName"
+                          #firstName="ngModel"
+                          required
+                          [ngClass]="{ 'is-invalid': addStaff.submitted && firstName.invalid }">
+                  <div class="invalid-feedback" *ngIf="firstName?.errors?.['required']">
+                    {{ 'STAFFS.FIRST_NAME_REQUIRED' | translate }}
+                  </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                  <label for="lastName" class="form-label">{{ 'STAFFS.LAST_NAME' | translate }}</label>
+                  <input type="text"
+                          class="form-control"
+                          id="lastName"
+                          name="lastName"
+                          placeholder="{{ 'STAFFS.LAST_NAME' | translate }}"
+                          [(ngModel)]="staff.lastName"
+                          #lastName="ngModel"
+                          required
+                          [ngClass]="{ 'is-invalid': addStaff.submitted && lastName.invalid }">
+                  <div class="invalid-feedback" *ngIf="firstName?.errors?.['required']">
+                    {{ 'STAFFS.LAST_NAME_REQUIRED' | translate }}
+                  </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                  <label for="lastName" class="form-label">{{ 'STAFFS.BIRTHDAY' | translate }}</label>
+                  <div class="input-group">
+                    <input class="form-control"
+                            placeholder="yyyy-mm-dd"
+                            id="birthday"
+                            name="birthday"
+                            [(ngModel)]="staff.birthday"
+                            ngbDatepicker
+                            #d="ngbDatepicker">
+                    <button class="input-group-text" type="button" (click)="d.toggle()"><i class="fa-regular fa-calendar text-muted"></i></button>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                  <label for="gender" class="form-label">{{ 'STAFFS.GENDER' | translate }}</label>
+                  <div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input"
+                              type="radio"
+                              id="genderMale"
+                              name="gender"
+                              value="M"
+                              [(ngModel)]="staff.gender"
+                              #gender="ngModel"
+                              [ngClass]="{ 'is-invalid': addStaff.submitted && gender.invalid }">
+                      <label class="form-check-label" for="genderMale">{{ 'STAFFS.STAFF_MALE' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input"
+                              type="radio"
+                              id="genderFemale"
+                              name="gender"
+                              value="F"
+                              [(ngModel)]="staff.gender"
+                              #gender="ngModel"
+                              [ngClass]="{ 'is-invalid': addStaff.submitted && gender.invalid }">
+                      <label class="form-check-label" for="genderFemale">{{ 'STAFFS.STAFF_FEMALE' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="cin" class="form-label">{{ 'STAFFS.CIN' | translate }}</label>
+              <input type="text"
+                      class="form-control"
+                      id="cin"
+                      name="cin"
+                      placeholder="{{ 'STAFFS.CIN' | translate }}"
+                      [(ngModel)]="staff.cin"
+                      #cin="ngModel"
+                      required
+                      [ngClass]="{ 'is-invalid': addStaff.submitted && cin.invalid }">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">{{ 'STAFFS.EMAIL' | translate }}</label>
+              <input type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="{{ 'STAFFS.EMAIL' | translate }}"
+                      [(ngModel)]="staff.email"
+                      #email="ngModel"
+                      required
+                      [ngClass]="{ 'is-invalid': addStaff.submitted && email.invalid }">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="address" class="form-label">{{ 'STAFFS.ADDRESS' | translate }}</label>
+              <input type="text"
+                      class="form-control"
+                      id="address"
+                      name="address"
+                      placeholder="{{ 'STAFFS.ADDRESS' | translate }}"
+                      [(ngModel)]="staff.address"
+                      #address="ngModel"
+                      required
+                      [ngClass]="{ 'is-invalid': addStaff.submitted && address.invalid }">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="phoneNumber" class="form-label">{{ 'STAFFS.PHONE_NUMBER' | translate }}</label>
+              <input type="text"
+                      class="form-control"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      placeholder="{{ 'STAFFS.PHONE_NUMBER' | translate }}"
+                      [(ngModel)]="staff.phoneNumber"
+                      #phoneNumber="ngModel"
+                      required
+                      [ngClass]="{ 'is-invalid': addStaff.submitted && phoneNumber.invalid }">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="address" class="form-label">{{ 'STAFFS.ROLE' | translate }}</label>
+              <select class="form-select"
+                      id="address"
+                      name="address"
+                      [(ngModel)]="staff.role"
+                      #role="ngModel"
+                      required
+                      [ngClass]="{ 'is-invalid': addStaff.submitted && role.invalid }">
+                <option selected>{{ 'STAFFS.SELECT_ROLE' | translate }}</option>
+                <option value="1">{{ 'STAFFS.ADMIN' | translate }}</option>
+                <option value="2">{{ 'STAFFS.DOCTOR' | translate }}</option>
+                <option value="3">{{ 'STAFFS.SECRETARY' | translate }}</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 mb-3"></div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" (click)="saveStaff()">{{ 'STAFFS.STAFF_ADD' | translate }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

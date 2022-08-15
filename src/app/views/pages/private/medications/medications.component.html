@@ -1,0 +1,60 @@
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink=".">{{ 'MEDICATIONS.MEDICATIONS' | translate }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ 'MEDICATIONS.MEDICATIONS_LIST' | translate }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+  <div class="{{ alert }}" role="alert" *ngIf="submitted">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+    <div id="successMessage"> {{ success.message | translate }} <a routerLinkActive="active">{{ success.medicationName }}</a></div>
+  </div>
+
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-end">
+            <a class="btn btn-success" routerLink="add" routerLinkActive="active"><i class="fa-regular fa-square-plus me-2"></i>{{ 'MEDICATIONS.MEDICATIONS_ADD' | translate }}</a>
+          </div>
+          <h6 class="card-title">{{ 'MEDICATIONS.MEDICATIONS_LIST' | translate }}</h6>
+
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                  <th class="text-center">Medication</th>
+                  <th class="text-center">Description</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+            <tbody>
+              <tr *ngFor="let medication of medications">
+                <td class="text-center">{{ medication.name }}</td>
+                <td class="text-center">{{ medication.description }}</td>
+                <td class="text-center">
+                  <a class="btn btn-primary btn-sm mx-1" [routerLink]="['edit', medication.id]" routerLinkActive="active"><i class="fa-solid fa-pen-to-square"></i></a>
+                  <button class="btn btn-danger btn-sm mx-1" (click)="deleteMedication(basicModal,medication.id)" routerLinkActive="active"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #basicModal let-modal>
+      <div class="modal-header">
+        <button type="button" class="btn-close" (click)="modal.close('close')" aria-label="Close"></button>
+      </div>
+      <div class="modal-body flex-column text-center">
+        <div class="text-danger" style="font-size: 64px;">
+          <i class="fa-duotone fa-circle-trash"></i>
+        </div>
+        <h4 class="modal-title">Are you sure , you want delete this medication ?</h4>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary btn-lg px-5" (click)="modal.close('cancel')">No</button>
+        <button type="button" class="btn btn-danger btn-lg px-5" (click)="modal.close('delete')">Yes</button>
+      </div>
+  </ng-template>

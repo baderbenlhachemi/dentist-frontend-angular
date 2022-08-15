@@ -1,0 +1,100 @@
+.nav {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 5px;
+  align-items: center;
+  width:100%;
+}
+
+
+.logo {
+  display: flex;
+  flex-direction: column;
+}
+.logo.layout {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  margin: 10px;
+}
+.title-box.layout {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  min-width: 0px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 10px 0px 0px 10px;
+}
+.title {
+  font: 700 30px/1.2 "Roboto", Helvetica, Arial, serif;
+  color: black;
+  letter-spacing: 0px;
+}
+.title-span0 {
+  font: 700 1em/1.2 "Roboto", Helvetica, Arial, serif;
+  color: #4d77ffff;
+  letter-spacing: 0px;
+}
+.title-span1 {
+  font: 1em/1.2 "Roboto", Helvetica, Arial, serif;
+  color: #9adcffff;
+  letter-spacing: 0px;
+}
+.spacer {
+  flex: 0 1 170px;
+}
+.flexer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 0 1 474px;
+}
+
+
+.button {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 8px 23px 0px rgba(65, 132, 247, 0.2392156863);
+  border-radius: 28px 28px 28px 28px;
+  filter: drop-shadow(0px 8px 23px rgba(65, 132, 247, 0.2392156863));
+  background: url(/assets/images/landing-page/bg-gradient.png) no-repeat center;
+}
+.button.layout {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  margin: 10px 5px 9px;
+}
+.login-div {
+  display: flex;
+  cursor: pointer;
+}
+.login-div:hover {
+  scale: 1.1;
+}
+.login-div.layout {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  margin: 16px 23px 16px 28px;
+}
+.login-div-item {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 0 1 24px;
+}
+
+.eardoc{
+    padding-right: 10px;
+}

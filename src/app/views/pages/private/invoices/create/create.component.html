@@ -1,0 +1,51 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="../" routerLinkActive="active">{{ 'INVOICES.INVOICES' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'INVOICES.INVOICE_CREATE' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="submitted">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+    <div id="successMessage"> {{ success.message | translate }}</div>
+  </div>
+
+  <div class="col-md-3 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="mb-3">
+          <!-- Filter -->
+          <label for="filter" class="form-label">{{ 'INVOICES.FILTER' | translate }}</label>
+          <input type="text" class="form-control" placeholder="{{ 'INVOICES.FILTER' | translate }}" [(ngModel)]="filter" (keyup)="filterPatients()">
+        </div>
+
+        <div #patientsList>
+          <div *ngFor="let patient of patientsFilter | paginate: { itemsPerPage: 10, currentPage: page }">
+            <div class="patientBox p-2 mb-3 rounded" [ngClass]="{ 'active': selectedPatient === patient.id }" (click)="selectPatient(patient.id)">
+              <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <div class="flex-grow">
+                  <h6 class="text-black mb-0">{{ patient.lastName }} {{ patient.firstName }}</h6>
+                  <small class="text-muted mb-0">{{ patient.cin }} - {{ patient.birthday | date: 'dd/MM/yyyy' }}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="has-text-centered">
+          <pagination-controls (pageChange)="page = $event" [previousLabel]="''" [nextLabel]="''"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">{{ 'INVOICES.ACTS' | translate }}</h6>
+      </div>
+    </div>
+  </div>
+</div>
+

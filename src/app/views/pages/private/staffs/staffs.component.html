@@ -1,0 +1,48 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">{{ 'STAFFS.STAFFS' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'STAFFS.STAFF_LIST' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-end mb-3">
+          <a class="btn btn-success" routerLink="add" routerLinkActive="active"><i class="fa-regular fa-square-plus me-2"></i>{{ 'STAFFS.STAFF_ADD' | translate }}</a>
+        </div>
+
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-bordered">
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Address</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          <tbody>
+            <tr *ngFor="let staff of staffs">
+              <td>{{ staff.id }}</td>
+              <td>{{ staff.lastName }} {{ staff.firstName }}</td>
+              <td>{{ staff.username }}</td>
+              <td>{{ staff.email }}</td>
+              <td>{{ staff.phoneNumber }}</td>
+              <td>{{ staff.address }}</td>
+              <td>
+                <!--
+                  <a class="btn btn-dark btn-sm mx-1" [routerLink]="['details', staff.id]" routerLinkActive="active"><i class="fa-solid fa-memo"></i></a>
+                -->
+                <a class="btn btn-primary btn-sm mx-1" [routerLink]="['edit', staff.id]" routerLinkActive="active"><i class="fa-solid fa-pen-to-square"></i></a>
+                <button class="btn btn-danger btn-sm mx-1" (click)="null;"><i class="fa-solid fa-trash"></i></button>
+              </td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

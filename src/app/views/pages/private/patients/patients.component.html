@@ -1,0 +1,48 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">{{ 'PATIENTS.PATIENTS' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'PATIENTS.PATIENT_LIST' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-end">
+          <a class="btn btn-success" routerLink="add" routerLinkActive="active"><i class="fa-regular fa-square-plus me-2"></i>{{ 'PATIENTS.PATIENT_ADD' | translate }}</a>
+        </div>
+
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-bordered">
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Address</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          <tbody>
+            <tr *ngFor="let patient of patients">
+              <td>{{ patient.id }}</td>
+              <td>{{ patient.lastName }} {{ patient.firstName }}</td>
+              <td>{{ patient.username }}</td>
+              <td>{{ patient.email }}</td>
+              <td>{{ patient.phoneNumber }}</td>
+              <td>{{ patient.address }}</td>
+              <td>
+                <!--
+                  <a class="btn btn-dark btn-sm mx-1" [routerLink]="['details', patient.id]" routerLinkActive="active"><i class="fa-solid fa-memo"></i></a>
+                -->
+                <a class="btn btn-primary btn-sm mx-1" [routerLink]="['edit', patient.id]" routerLinkActive="active"><i class="fa-solid fa-pen-to-square"></i></a>
+                <button class="btn btn-danger btn-sm mx-1" (click)="null;"><i class="fa-solid fa-trash"></i></button>
+              </td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

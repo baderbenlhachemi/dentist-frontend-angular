@@ -1,0 +1,240 @@
+<div class="container">
+  <div class="nav">
+    <div class="logo layout">
+      <div class="title">
+        <span class="title-span0">Planet</span
+        ><span class="title-span1">Dentist</span>
+      </div>
+    </div>
+
+    <div class="d-flex" *ngIf="!isLoggedin">
+      <div class="button layout">
+        <div class="login-div layout" (click)="open(loginModal)">
+          <img src="assets/images/landing-page/eardoc.svg" class="eardoc" />
+          <h4 class="text-white">Login</h4>
+        </div>
+      </div>
+      <div class="button layout">
+        <div class="login-div layout" (click)="open(registerModal)">
+          <h4 class="text-white">Register</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loginModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Login</h4>
+    <button
+      type="button"
+      class="btn btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form #login="ngForm"
+          (ngSubmit)="login.form.valid && loginSubmit()">
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="email" class="form-label">{{ "Email" }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="{{ 'Email' }}"
+            [(ngModel)]="loginForm.email"
+            #email="ngModel"
+            required
+            minlength="3"
+            maxlength="100"
+            [ngClass]="{
+              'is-invalid': email.invalid && (email.dirty || email.touched),
+              'is-valid': email.valid && (email.dirty || email.touched)
+            }"
+          />
+        </div>
+        <div class="col-md-12 mb-3">
+          <label for="password" class="form-label">{{ "Password" }}</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="{{ 'Password' }}"
+            [(ngModel)]="loginForm.password"
+            #password="ngModel"
+            required
+            minlength="3"
+            [ngClass]="{
+              'is-invalid': password.invalid && (password.dirty || password.touched),
+              'is-valid': password.valid && (password.dirty || password.touched)
+            }"
+          />
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary">{{ "Login" }}</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #registerModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Sign up</h4>
+    <button
+      type="button"
+      class="btn btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger" role="alert" *ngIf="registerError">
+      {{ registerErrorMessage }}
+    </div>
+
+    <div class="alert alert-success" role="alert" *ngIf="registerSuccess">
+      {{ registerSuccessMessage }}
+    </div>
+
+    <form #register="ngForm"
+          (ngSubmit)="register.form.valid && registerSubmit()">
+      <div class="row ">
+        <div class="col-md-12 mb-3">
+          <label for="lastName" class="form-label">{{ "Last Name" }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            name="lastName"
+            placeholder="{{ 'Last Name' }}"
+            [(ngModel)]="registerForm.lastName"
+            #lastName="ngModel"
+            required
+            minlength="3"
+            [ngClass]="{
+              'is-invalid': register.submitted && lastName.invalid,
+              'is-valid': register.submitted && lastName.valid
+            }"
+          />
+        </div>
+        <div class="col-md-12 mb-3">
+          <label for="firstName" class="form-label">{{ "First Name" }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            name="firstName"
+            placeholder="{{ 'First Name' }}"
+            [(ngModel)]="registerForm.firstName"
+            #firstName="ngModel"
+            required
+            minlength="3"
+            [ngClass]="{
+              'is-invalid': register.submitted && firstName.invalid,
+              'is-valid': register.submitted && firstName.valid
+            }"
+          />
+        </div>
+        <div class="col-md-12 mb-3">
+          <label for="cin" class="form-label">{{ "CIN" }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cin"
+            name="cin"
+            placeholder="{{ 'CIN' }}"
+            [(ngModel)]="registerForm.cin"
+            #cin="ngModel"
+            required
+            minlength="3"
+            [ngClass]="{
+              'is-invalid': register.submitted && cin.invalid,
+              'is-valid': register.submitted && cin.valid
+            }"
+          />
+        </div>
+        <div class="col-md-12 mb-3">
+          <label for="email" class="form-label">{{ "Email" }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="{{ 'Email' }}"
+            [(ngModel)]="registerForm.email"
+            #email="ngModel"
+            required
+            minlength="3"
+            [ngClass]="{
+              'is-invalid': register.submitted && email.invalid,
+              'is-valid': register.submitted && email.valid
+            }"
+          />
+        </div>
+        <div class="col-md-12 mb-3">
+          <label for="password" class="form-label">{{ "Password" }}</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="{{ 'Password' }}"
+            [(ngModel)]="registerForm.password"
+            #password="ngModel"
+            required
+            minlength="6"
+            [ngClass]="{
+              'is-invalid': register.submitted && password.invalid,
+              'is-valid': register.submitted && password.valid
+            }"
+          />
+        </div>
+        <div class="col-md-12 mb-3">
+          <label for="passwordConfirm" class="form-label"> {{ "Password Confirm" }}</label>
+          <input
+            type="password"
+            class="form-control"
+            id="passwordConfirm"
+            name="passwordConfirm"
+            placeholder="{{ 'Password Confirm' }}"
+            [(ngModel)]="registerForm.passwordConfirm"
+            #passwordConfirm="ngModel"
+            required
+            minlength="6"
+            [ngClass]="{
+              'is-invalid': register.submitted && passwordConfirm.invalid,
+              'is-valid': register.submitted && passwordConfirm.valid
+            }"
+          />
+        </div>
+        <div class="col-md-12 mb-3">
+          <label for="phoneNumber" class="form-label">{{ "Phone Number" }}</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phoneNumber"
+            name="phoneNumber"
+            placeholder="{{ 'Phone Number' }}"
+            [(ngModel)]="registerForm.phoneNumber"
+            #phoneNumber="ngModel"
+            required
+            minlength="10"
+            [ngClass]="{
+              'is-invalid': register.submitted && phoneNumber.invalid,
+              'is-valid': register.submitted && phoneNumber.valid
+            }"
+          />
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-primary">{{ "Sign up" }}</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

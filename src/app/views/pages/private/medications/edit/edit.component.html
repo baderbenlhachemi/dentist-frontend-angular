@@ -1,0 +1,53 @@
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin/medications" routerLinkActive="active">{{ 'MEDICATIONS.MEDICATIONS' | translate }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ 'MEDICATIONS.MEDICATIONS_EDIT' | translate }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="submitted">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+        <div id="successMessage"> {{ success.message | translate }}</div>
+      </div>
+
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">{{ 'MEDICATIONS.MEDICATIONS_ADD' | translate }}</h6>
+                <form #editMedication="ngForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">{{ 'MEDICATIONS.MEDICATION_NAME' | translate }}</label>
+                            <input 
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                placeholder="{{ 'MEDICATIONS.MEDICATION_NAME' | translate }}"
+                                [(ngModel)]="medication.name"
+                                required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                                <label for="description" class="form-label">{{ 'MEDICATIONS.DESCRIPTION' | translate }}</label>
+                                <textarea
+                                class="form-control"
+                                id="description"
+                                name="description"
+                                [(ngModel)]="medication.description"
+                                placeholder="{{ 'MEDICATIONS.DESCRIPTION' | translate }}"
+                                required></textarea>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary" (click)="updateMedication()">{{ 'MEDICATIONS.MEDICATIONS_EDIT' | translate }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

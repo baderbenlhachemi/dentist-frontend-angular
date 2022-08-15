@@ -1,0 +1,187 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="../../">{{ 'PATIENTS.PATIENTS' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'PATIENTS.PATIENT_EDIT' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="submitted">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+    <div id="successMessage"> {{ success.message | translate }} <a routerLink="../details/{{ success.patientId }}" routerLinkActive="active">{{ success.patientName }}</a></div>
+  </div>
+
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">{{ 'PATIENTS.PATIENT_EDIT' | translate }}</h6>
+
+        <form #editPatient="ngForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <label for="profilePicture">{{ 'PATIENTS.PROFILE_PICTURE' | translate }}</label>
+                  <input type="file"
+                        class="form-control d-none"
+                        #profilePicture
+                        id="profilePicture"
+                        name="profilePicture"
+                        accept="image/*"
+                        (change)="onImageChange($event)"
+                        >
+                </div>
+
+                <div>
+                  <button class="btn btn-primary" (click)="profilePicture.click()">{{ 'PATIENTS.UPLOAD_PROFILE_PICTURE' | translate }}</button>
+                </div>
+              </div>
+
+              <div class="preview text-center" *ngIf="previewFile">
+                <img class="img-thumbnail" [src]="previewFile" style="width:250px; height:250px">
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="firstName" class="form-label">{{ 'PATIENTS.FIRST_NAME' | translate }}</label>
+                  <input type="text"
+                          class="form-control"
+                          id="firstName"
+                          name="firstName"
+                          placeholder="{{ 'PATIENTS.FIRST_NAME' | translate }}"
+                          [(ngModel)]="patient.firstName"
+                          #firstName="ngModel"
+                          required
+                          [ngClass]="{ 'is-invalid': editPatient.submitted && firstName.invalid }">
+                  <div class="invalid-feedback" *ngIf="firstName?.errors?.['required']">
+                    {{ 'PATIENTS.FIRST_NAME_REQUIRED' | translate }}
+                  </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                  <label for="lastName" class="form-label">{{ 'PATIENTS.LAST_NAME' | translate }}</label>
+                  <input type="text"
+                          class="form-control"
+                          id="lastName"
+                          name="lastName"
+                          placeholder="{{ 'PATIENTS.LAST_NAME' | translate }}"
+                          [(ngModel)]="patient.lastName"
+                          #lastName="ngModel"
+                          required
+                          [ngClass]="{ 'is-invalid': editPatient.submitted && lastName.invalid }">
+                  <div class="invalid-feedback" *ngIf="firstName?.errors?.['required']">
+                    {{ 'PATIENTS.LAST_NAME_REQUIRED' | translate }}
+                  </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                  <label for="lastName" class="form-label">{{ 'PATIENTS.BIRTHDAY' | translate }}</label>
+                  <div class="input-group">
+                    <input class="form-control"
+                            placeholder="yyyy-mm-dd"
+                            id="birthday"
+                            name="birthday"
+                            [(ngModel)]="patient.birthday"
+                            ngbDatepicker
+                            #d="ngbDatepicker">
+                    <button class="input-group-text" type="button" (click)="d.toggle()"><i class="fa-regular fa-calendar text-muted"></i></button>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                  <label for="gender" class="form-label">{{ 'PATIENTS.GENDER' | translate }}</label>
+                  <div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input"
+                              type="radio"
+                              id="genderMale"
+                              name="gender"
+                              value="M"
+                              [(ngModel)]="patient.gender"
+                              #gender="ngModel"
+                              [ngClass]="{ 'is-invalid': editPatient.submitted && gender.invalid }">
+                      <label class="form-check-label" for="genderMale">{{ 'PATIENTS.PATIENT_MALE' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input"
+                              type="radio"
+                              id="genderFemale"
+                              name="gender"
+                              value="F"
+                              [(ngModel)]="patient.gender"
+                              #gender="ngModel"
+                              [ngClass]="{ 'is-invalid': editPatient.submitted && gender.invalid }">
+                      <label class="form-check-label" for="genderFemale">{{ 'PATIENTS.PATIENT_FEMALE' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="cin" class="form-label">{{ 'PATIENTS.CIN' | translate }}</label>
+              <input type="text"
+                      class="form-control"
+                      id="cin"
+                      name="cin"
+                      placeholder="{{ 'PATIENTS.CIN' | translate }}"
+                      [(ngModel)]="patient.cin"
+                      #cin="ngModel"
+                      required
+                      [ngClass]="{ 'is-invalid': editPatient.submitted && cin.invalid }">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">{{ 'PATIENTS.EMAIL' | translate }}</label>
+              <input type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="{{ 'PATIENTS.EMAIL' | translate }}"
+                      [(ngModel)]="patient.email"
+                      #email="ngModel"
+                      required
+                      [ngClass]="{ 'is-invalid': editPatient.submitted && email.invalid }">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="address" class="form-label">{{ 'PATIENTS.ADDRESS' | translate }}</label>
+              <input type="text"
+                      class="form-control"
+                      id="address"
+                      name="address"
+                      placeholder="{{ 'PATIENTS.ADDRESS' | translate }}"
+                      [(ngModel)]="patient.address"
+                      #address="ngModel"
+                      required
+                      [ngClass]="{ 'is-invalid': editPatient.submitted && address.invalid }">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="phoneNumber" class="form-label">{{ 'PATIENTS.PHONE_NUMBER' | translate }}</label>
+              <input type="text"
+                      class="form-control"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      placeholder="{{ 'PATIENTS.PHONE_NUMBER' | translate }}"
+                      [(ngModel)]="patient.phoneNumber"
+                      #phoneNumber="ngModel"
+                      required
+                      [ngClass]="{ 'is-invalid': editPatient.submitted && phoneNumber.invalid }">
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" (click)="updatePatient()">{{ 'PATIENTS.PATIENT_EDIT' | translate }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

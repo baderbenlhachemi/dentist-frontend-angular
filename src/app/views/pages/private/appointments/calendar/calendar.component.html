@@ -1,0 +1,150 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="../" routerLinkActive="active">{{ 'APPOINTMENTS.APPOINTMENTS' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'APPOINTMENTS.CALENDAR' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-3 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-column flex-md-row align-items-center mb-3">
+          <div class="flex-grow">
+            <h2 class="text-dark mb-1">{{ pendingAppointments ? pendingAppointments.length : 0 }}</h2>
+            <h6 class="text-muted mb-0">{{ 'APPOINTMENTS.PENDING_APPOINTMENTS' | translate }}</h6>
+          </div>
+        </div>
+
+        <div>
+          <div *ngFor="let appointment of pendingAppointments | paginate: { itemsPerPage: 10, currentPage: page }">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+              <div class="flex-grow">
+                <h6 class="text-muted mb-1">{{ appointment.note }}</h6>
+                <p class="text-muted mb-0"><a [routerLink]="['/admin/patients/details', appointment.patient.id]">{{ appointment.patient.lastName }} {{ appointment.patient.firstName }}</a></p>
+                <small class="text-muted mb-0">{{ appointment.date | date: 'dd/MM/yyyy HH:mm' }}</small>
+              </div>
+              <div class="flex-shrink">
+                <button class="btn btn-success btn-sm mx-2" (click)="acceptAppointment(acceptAppointmentModal, appointment)"><i class="fa-solid fa-check"></i></button>
+                <button class="btn btn-danger btn-sm ms-2" (click)="rejectAppointment(rejectAppointmentModal, appointment)"><i class="fa-solid fa-x"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="has-text-centered">
+          <pagination-controls (pageChange)="page = $event" [previousLabel]="''" [nextLabel]="''"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">{{ 'APPOINTMENTS.APPOINTMENTS' | translate }}</h6>
+
+        <full-calendar [options]='calendarOptions'></full-calendar>
+
+        <small>{{ 'APPOINTMENTS.APPOINTMENT_ADD_NOTICE' | translate }}</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #acceptAppointmentModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">{{ 'APPOINTMENTS.ACCEPT_APPOINTMENT' | translate }}</h5>
+    <button type="button" class="btn-close" (click)="modal.close('close')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label for="doctor">{{ 'APPOINTMENTS.DOCTOR' | translate }}</label>
+      <ng-select [items]="doctors"
+                  bindLabel="fullName"
+                  bindValue="id"
+                  name="patient"
+                  [(ngModel)]="doctor.id"
+                  #doctorId="ngModel"
+                  placeholder="{{ 'APPOINTMENTS.SELECT_DOCTOR' | translate }}"
+                  required
+                  [ngClass]="{ 'is-invalid': doctorId.invalid && doctorId.touched }">
+      </ng-select>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">{{ 'Cancel' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('accept')">{{ 'APPOINTMENTS.ACCEPT' | translate }}</button>
+  </div>
+</ng-template>
+
+<ng-template #rejectAppointmentModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Reject Appointment</h5>
+    <button type="button" class="btn-close" (click)="modal.close('close')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure , you want reject this appointment ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">No</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('reject')">Reject</button>
+  </div>
+</ng-template>
+
+<ng-template #addAppointmentModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">{{ 'APPOINTMENTS.APPOINTMENT_ADD' | translate }}</h5>
+    <button type="button" class="btn-close" (click)="modal.close('close')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label class="form-label" for="patient">{{ 'APPOINTMENTS.PATIENT' | translate }}</label>
+      <ng-select [items]="patients"
+                  bindLabel="fullName"
+                  bindValue="id"
+                  name="patient"
+                  [(ngModel)]="addAppointment.patient.id"
+                  required>
+      </ng-select>
+
+      <label class="form-label mt-3" for="doctor">{{ 'APPOINTMENTS.DOCTOR' | translate }}</label>
+      <ng-select [items]="doctors"
+                  bindLabel="fullName"
+                  bindValue="id"
+                  name="doctor"
+                  [(ngModel)]="addAppointment.doctor.id"
+                  required>
+      </ng-select>
+
+      <Label class="form-label mt-3" for="hour">{{ 'APPOINTMENTS.TIME' | translate }}</Label>
+      <div>
+        <div class="form-check form-check-inline" *ngFor="let hour of hours">
+          <input class="form-check-input"
+                  type="radio"
+                  name="hour"
+                  value="{{ hour }}"
+                  [(ngModel)]="addAppointment.selectedHour"
+                  #selectedHour="ngModel"
+                  required
+                  [ngClass]="{ 'is-invalid': selectedHour.invalid && selectedHour.touched }">
+          <label class="form-check-label" for="inlineRadio1">{{ hour }}</label>
+        </div>
+      </div>
+
+      <label class="form-label mt-3" for="note">{{ 'APPOINTMENTS.NOTE' | translate }}</label>
+      <textarea class="form-control" id="note" name="note" [(ngModel)]="addAppointment.note" rows="3"></textarea>
+
+      <label class="form-label mt-3" for="isUrgent">{{ 'APPOINTMENTS.URGENT' | translate }}</label>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="isUrgent" [(ngModel)]="addAppointment.isUrgent">
+        <label class="form-check-label" for="inlineRadio1">{{ 'APPOINTMENTS.URGENT' | translate }}</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">{{ 'Cancel' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('add')">{{ 'APPOINTMENTS.APPOINTMENT_ADD' | translate }}</button>
+  </div>
+</ng-template>

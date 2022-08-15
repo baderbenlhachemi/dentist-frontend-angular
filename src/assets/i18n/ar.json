@@ -1,0 +1,12 @@
+{
+  "LANGUAGE": {
+    "ENGLISH": "إنجليزي",
+    "FRENCH": "فرنسي",
+    "ARABIC": "عربي"
+  },
+  "Dashboard": "لوحة القيادة",
+  "Main": "الرئيسية",
+  "Clinic": "العيادة",
+  "Finance": "المالية",
+  "Settings": "الإعدادات"
+}

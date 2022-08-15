@@ -1,0 +1,56 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="./" routerLinkActive="active">{{ 'APPOINTMENTS.APPOINTMENTS' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'APPOINTMENTS.APPOINTMENTS_LIST' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <!--
+        <div class="d-flex justify-content-end">
+          <a class="btn btn-success" routerLink="add" routerLinkActive="active"><i class="fa-regular fa-square-plus me-2"></i>{{ 'PATIENTS.PATIENT_ADD' | translate }}</a>
+        </div>
+        -->
+
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-bordered" id="appointments">
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>Note</th>
+                <th>Date</th>
+                <th>Is Urgent</th>
+                <th>Status</th>
+                <th>Patient</th>
+              </tr>
+            </thead>
+          <tbody>
+            <tr *ngFor="let appointment of appointments">
+              <td>{{ appointment.id }}</td>
+              <td>{{ appointment.note }}</td>
+              <td>{{ appointment.date | date: 'dd/MM/yyyy hh:mm' }}</td>
+              <td>
+                <span *ngIf="appointment.urgent">
+                  <i class="fa-solid fa-exclamation-triangle text-danger"></i>
+                </span>
+                <span *ngIf="!appointment.urgent">
+                  <i class="fa-solid fa-exclamation-circle text-primary"></i>
+                </span>
+              </td>
+              <td>
+                <span class="badge rounded-pill bg-success" *ngIf="appointment.status == 'COMPLETED'">completed</span>
+                <span class="badge rounded-pill bg-primary" *ngIf="appointment.status == 'ACCEPTED'">accepted</span>
+                <span class="badge rounded-pill bg-warning" *ngIf="appointment.status == 'PENDING'">pending</span>
+                <span class="badge rounded-pill bg-danger" *ngIf="appointment.status == 'REJECTED'">rejected</span>
+                <span class="badge rounded-pill bg-info" *ngIf="appointment.status == 'CANCELLED'">canceled</span>
+
+              </td>
+              <td><a [routerLink]="['/admin/patients/details/', appointment.patient.id]">{{ appointment.patient.lastName }} {{ appointment.patient.firstName }}</a></td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

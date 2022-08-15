@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.hero-title{
+  font: 700 1em/1.2 "Poppins", Helvetica, Arial, serif;
+  color: #4D77FF;
+  letter-spacing: 0px;
+}
+.d-flex.layout {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  width: 93.36%;
+  margin: 38px 0% 5px 6.64%;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+  -o-object-fit: contain;
+  object-fit: contain;
+  -o-object-position: center top;
+  object-position: center top;
+}
+.d-flex.flex-column.layout {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  margin: 170px 0px 103px;
+}
+.title {
+  overflow: visible;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin: 0px;
+  font: 700 40px/1.2 "Poppins", Helvetica, Arial, serif;
+  color: black;
+  letter-spacing: 0px;
+  white-space: pre-wrap;
+}
+
+.desc {
+  font: 16px/1.5 "Sora", Helvetica, Arial, serif;
+  color: #6b86ae;
+  letter-spacing: 0px;
+}
+.desc.layout {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  padding:15px;
+}
+.button {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 8px 23px 0px rgba(65, 132, 247, 0.2392156863);
+  border-radius: 28px 28px 28px 28px;
+  filter: drop-shadow(0px 8px 23px rgba(65, 132, 247, 0.2392156863));
+    background: url(/assets/images/landing-page/bg-gradient.png) no-repeat center;
+
+}
+.button.layout {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  width: 25.08%;
+  margin: 1rem auto;
+  left:15px;
+
+}
+.button-layout{
+  display: flex;
+}
+.button-layout.layout {
+  position: relative;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  margin: 16px 24px 16px 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 0 1 487px;
+}

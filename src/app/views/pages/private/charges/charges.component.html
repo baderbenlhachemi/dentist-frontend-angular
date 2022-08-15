@@ -1,0 +1,64 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a routerLink=".">{{ "charges" | translate }}</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      {{ "charges List" | translate }}
+    </li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+    <button type="button" class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0" (click)="printRecords()">
+      <i class="btn-icon-prepend fa-solid fa-print"></i>
+      Print
+    </button>
+          <a class="btn btn-success" routerLink="add" routerLinkActive="active"
+            ><i class="fa-regular fa-square-plus me-2"></i
+            >{{ "Add charge" | translate }}</a
+          >
+        </div>
+        <h6 class="card-title text-center">charges list</h6>
+
+        <table datatable class="table table-hover table-bordered" id="charges">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let charge of charges">
+              <td>{{ charge.title }}</td>
+              <td>{{ charge.description }}</td>
+              <td>{{ charge.amount }}</td>
+              <td>{{ charge.date }}</td>
+              <td>
+                <a
+                  class="btn btn-primary btn-sm mx-1"
+                  [routerLink]="['edit', charge.id]"
+                  routerLinkActive="active"
+                  ><i class="fa-solid fa-pen-to-square"></i
+                ></a>
+                <button
+                  class="btn btn-danger btn-sm mx-1"
+                  (click)="deleteCharge(charge.id)"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

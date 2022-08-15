@@ -1,0 +1,24 @@
+@import "~/src/assets/scss/variables.scss";
+
+:host {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nobleui-logo {
+  font-weight: 700;
+  font-size: 25px;
+  color: darken($primary, 50%);
+  span {
+    color: $primary;
+    font-weight: 300;
+  }
+  &:hover {
+    color: darken($primary, 50%);
+  }
+  &.logo-light {
+    color: $body-color;
+  }
+}

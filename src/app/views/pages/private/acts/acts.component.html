@@ -1,0 +1,60 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">{{ 'ACTS.ACTS' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'ACTS.ACT_LIST' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="deleted">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+    <div id="successMessage"> {{ success.message | translate }} </div>
+  </div>
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-end">
+          <a class="btn btn-success" routerLink="add" routerLinkActive="active"><i class="fa-regular fa-square-plus me-2"></i>{{ 'ACTS.ACT_ADD' | translate }}</a>
+        </div>
+
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-bordered">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Label</th>
+            <th>Description</th>
+            <th>Base price</th>
+            <th>Plan category</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let act of acts">
+            <td>{{ act.id }}</td>
+            <td>{{ act.label }}</td>
+            <td>{{ act.description }}</td>
+            <td>{{ act.basePrice }}</td>
+            <td>{{ act.planCategory.name }}</td>
+            <td>
+              <a class="btn btn-primary btn-sm mx-1" [routerLink]="['edit', act.id]" routerLinkActive="active"><i class="fa-solid fa-pen-to-square"></i></a>
+              <button class="btn btn-danger btn-sm mx-1" (click)="deleteModal(basicModal,act.id)"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #basicModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+    <button type="button" class="btn-close" (click)="modal.close('close')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure , you want delete it ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">No</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('delete')">Delete</button>
+  </div>
+</ng-template>

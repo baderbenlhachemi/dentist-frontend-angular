@@ -1,0 +1,280 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="../" routerLinkActive="active">{{ 'MEDICAL_HISTORIES.MEDICAL_HISTORIES' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'MEDICAL_HISTORIES.MEDICAL_HISTORIES_LIST' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="submitted">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+    <div id="successMessage"> {{ success.message | translate }}</div>
+  </div>
+
+  <div class="col-md-3 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="mb-3">
+          <!-- Filter -->
+          <label for="filter" class="form-label">{{ 'MEDICAL_HISTORIES.FILTER' | translate }}</label>
+          <input type="text" class="form-control" placeholder="{{ 'MEDICAL_HISTORIES.FILTER' | translate }}" [(ngModel)]="filter" (keyup)="filterPatients()">
+        </div>
+
+        <div #patientsList>
+          <div *ngFor="let patient of patientsFilter | paginate: { itemsPerPage: 10, currentPage: page }">
+            <div class="patientBox p-2 mb-3 rounded" [ngClass]="{ 'active': selectedPatient === patient.id }" (click)="selectPatient(patient.id)">
+              <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <div class="flex-grow">
+                  <h6 class="text-black mb-0">{{ patient.lastName }} {{ patient.firstName }}</h6>
+                  <small class="text-muted mb-0">{{ patient.cin }} - {{ patient.birthday | date: 'dd/MM/yyyy' }}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="has-text-centered">
+          <pagination-controls (pageChange)="page = $event" [previousLabel]="''" [nextLabel]="''"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">{{ 'MEDICAL_HISTORIES.MEDICAL_HISTORY' | translate }}</h6>
+
+        <form #editMedicalHistory="ngForm">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastName" class="form-label">{{ 'PATIENTS.LAST_NAME' | translate }}</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="patient.lastName" [readonly]="true">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstName" class="form-label">{{ 'PATIENTS.FIRST_NAME' | translate }}</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="patient.firstName" [readonly]="true">
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="row g-3 align-items-center">
+              <div class="col">
+                <label for="md1" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD1' | translate }}</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" id="md1" name="md1" [(ngModel)]="medicalHistory.md1">
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row g-3 align-items-center">
+                  <div class="col">
+                    <label for="md2" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD2' | translate }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md2" id="md2_yes" [(ngModel)]="medicalHistory.md2" [value]="true">
+                      <label class="form-check-label" for="md2_yes">{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md2" id="md2_no" [(ngModel)]="medicalHistory.md2" [value]="false">
+                      <label class="form-check-label" for="md2_no">{{ 'No' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row g-3 align-items-center">
+                  <div class="col">
+                    <label for="md3" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD3' | translate }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md3" id="md3_yes" [(ngModel)]="medicalHistory.md3" [value]="true">
+                      <label class="form-check-label" for="md3_yes">{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md3" id="md3_no" [(ngModel)]="medicalHistory.md3" [value]="false">
+                      <label class="form-check-label" for="md3_no">{{ 'No' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row g-3 align-items-center">
+                  <div class="col">
+                    <label for="md4" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD4' | translate }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md4" id="md4_yes"  [(ngModel)]="medicalHistory.md4" [value]="true">
+                      <label class="form-check-label" for="md4_yes">{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md4" id="md4_no" [(ngModel)]="medicalHistory.md4" [value]="false">
+                      <label class="form-check-label" for="md4_no">{{ 'No' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row g-3 align-items-center">
+                  <div class="col">
+                    <label for="md5" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD5' | translate }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md5" id="md5_yes" [(ngModel)]="medicalHistory.md5" [value]="true">
+                      <label class="form-check-label" for="md5_yes">{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md5" id="md5_no" [(ngModel)]="medicalHistory.md5" [value]="false">
+                      <label class="form-check-label" for="md5_no">{{ 'No' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row g-3 align-items-center">
+                  <div class="col">
+                    <label for="md6" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD6' | translate }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md6" id="md6_yes" [(ngModel)]="medicalHistory.md6" [value]="true">
+                      <label class="form-check-label" for="md6_yes">{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md6" id="md6_no" [(ngModel)]="medicalHistory.md6" [value]="false">
+                      <label class="form-check-label" for="md6_no">{{ 'No' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row g-3 align-items-center">
+                  <div class="col">
+                    <label for="md7" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD7' | translate }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md7" id="md7_yes" [(ngModel)]="medicalHistory.md7" [value]="true">
+                      <label class="form-check-label" for="md7_yes">{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md7" id="md7_no" [(ngModel)]="medicalHistory.md7" [value]="false">
+                      <label class="form-check-label" for="md7_no">{{ 'No' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row g-3 align-items-center">
+                  <div class="col">
+                    <label for="md8" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD8' | translate }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md8" id="md8_yes" [(ngModel)]="medicalHistory.md8" [value]="true">
+                      <label class="form-check-label" for="md8_yes">{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md8" id="md8_no" [(ngModel)]="medicalHistory.md8" [value]="false">
+                      <label class="form-check-label" for="md8_no">{{ 'No' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row g-3 align-items-center">
+                  <div class="col">
+                    <label for="md9" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD9' | translate }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md9" id="md9_yes" [(ngModel)]="medicalHistory.md9" [value]="true">
+                      <label class="form-check-label" for="md9_yes">{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md9" id="md9_no" [(ngModel)]="medicalHistory.md9" [value]="false">
+                      <label class="form-check-label" for="md9_no">{{ 'No' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row g-3 align-items-center">
+                  <div class="col">
+                    <label for="md10" class="col-form-label">{{ 'MEDICAL_HISTORIES.MD10' | translate }}</label>
+                  </div>
+                  <div class="col-auto">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md10" id="md10_yes" [(ngModel)]="medicalHistory.md10" [value]="true">
+                      <label class="form-check-label" for="md10_yes">{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="md10" id="md10_no" [(ngModel)]="medicalHistory.md10" [value]="false">
+                      <label class="form-check-label" for="md10_no">{{ 'No' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" (click)="updateMedicalHistory()">{{ 'MEDICAL_HISTORIES.MEDICAL_HISTORY_UPDATE' | translate }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

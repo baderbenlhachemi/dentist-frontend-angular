@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
+      <div class="sticky-top rounded shadow bg-white bg-opacity-50" style="top: 0.5rem;">
+        <div class="sidebar" style="position: relative; width: auto;">
+        <div class="sidebar-body">
+          <ul class="sidebar-nav metismenu" id="sidebar-menu" #sidebarMenu>
+            <li class="nav-item">
+              <a class="nav-link nav-link-ref" routerLink="/patient/profile">
+                <span class="link-icon"><i class="fa-duotone fa-square-user"></i></span>
+                <span class="link-title">{{ 'Profile' | translate }}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-ref" routerLink="/patient/appointments/book">
+                <span class="link-icon"><i class="fa-duotone fa-calendar-circle-plus"></i></span>
+                <span class="link-title">{{ 'Book an appointment' | translate }}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-ref" routerLink="/patient/appointments">
+                <span class="link-icon"><i class="fa-duotone fa-calendar-range"></i></span>
+                <span class="link-title">{{ 'Appointments' | translate }}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-ref" routerLink="/patient/consultations">
+                <span class="link-icon"><i class="fa-duotone fa-user-doctor-message"></i></span>
+                <span class="link-title">{{ 'Consultations' | translate }}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-ref" (click)="onLogout($event)">
+                <span class="link-icon"><i class="fa-duotone fa-right-from-bracket"></i></span>
+                <span class="link-title">{{ 'Logout' | translate }}</span>
+              </a>
+            </li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+    <div class="col-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

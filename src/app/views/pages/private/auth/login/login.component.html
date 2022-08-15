@@ -1,0 +1,76 @@
+<div class="row w-100 mx-0 auth-page">
+  <div class="col-md-8 col-xl-6 mx-auto">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-4 pe-md-0">
+          <div
+            class="auth-side-wrapper"
+            [ngStyle]="{
+              'background-color' : 'f4f4f4',
+              'background-image': 'url(assets/images/private/tooth.gif)'
+            }"
+          ></div>
+        </div>
+        <div class="col-md-8 ps-md-0">
+          <div class="auth-form-wrapper px-4 py-5">
+            <a routerLink="." class="nobleui-logo d-block mb-2">Planet<span>Dentist</span></a>
+            <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
+            <div class="alert alert-danger" role="alert" *ngIf="loginForm.submitted && isLoginFailed">Login failed: {{ errorMessage }}</div>
+            <form
+              class="needs-validation"
+              name="form"
+              #loginForm="ngForm"
+              (ngSubmit)="loginForm.form.valid && onSubmit()"
+              novalidate
+            >
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Email"
+                  value="admin@demo.com"
+                  name="username"
+                  [(ngModel)]="form.username"
+                  required
+                  #username="ngModel"
+                  [ngClass]="{ 'is-invalid': loginForm.submitted && password.invalid }"
+                />
+                <div class="valid-feedback">Valid Email address.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  autocomplete="current-password"
+                  placeholder="Password"
+                  value="root"
+                  name="password"
+                  [(ngModel)]="form.password"
+                  required
+                  #password="ngModel"
+                  [ngClass]="{ 'is-invalid': loginForm.submitted && password.invalid }"
+                />
+                <div class="valid-feedback">Valid Password.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
+              </div>
+              <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="authCheck"/>
+                <label class="form-check-label" for="authCheck">Remember me</label>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Check this checkbox to continue.</div>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink=".">{{ 'PRESCRIPTIONS.PRESCRIPTIONS' | translate }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ 'PRESCRIPTIONS.PRESCRIPTIONS_LIST' | translate }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+  <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="submitted">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
+    <div id="successMessage"> {{ success.message | translate }}</div>
+  </div>
+
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-end">
+          <a class="btn btn-success" (click)="add()"><i class="fa-regular fa-square-plus me-2"></i>{{ 'PRESCRIPTIONS.PRESCRIPTION_ADD' | translate }}</a>
+        </div>
+        <app-add *ngIf="clicked"></app-add>
+        <h6 class="card-title">{{ 'PRESCRIPTIONS.PRESCRIPTIONS_LIST' | translate }}</h6>
+        <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  datatable class="table table-hover table-bordered">
+          <thead>
+            <tr>
+                <th class="text-center">Patient</th>
+                <th class="text-center">Date Prescription</th>
+                <th class="text-center">Consultation note </th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+          <tbody>
+            <tr *ngFor="let prescription of prescriptions">
+              <td class="text-center">{{ prescription.consultation.appointment.patient.firstName + " " + prescription.consultation.appointment.patient.lastName }}</td>
+              <td class="text-center">{{ prescription.date }}</td>
+              <td class="text-center">{{ prescription.consultation.note }}</td>
+              <td class="text-center">
+                <a class="btn btn-primary btn-sm mx-1"  routerLinkActive="active"><i class="fa-solid fa-pen-to-square"></i></a>
+                <button class="btn btn-danger btn-sm mx-1" ><i class="fa-solid fa-trash"></i></button>  
+                <a class="btn btn-warning btn-sm mx-1"  [routerLink]="['../../details',prescription.id]" routerLinkActive="active"><i style="font-size: 16px;" class="fa-solid fa-memo-circle-info"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

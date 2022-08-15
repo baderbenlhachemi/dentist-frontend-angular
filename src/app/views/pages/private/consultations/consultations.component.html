@@ -1,0 +1,38 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">{{ 'CONSULTATIONS.CONSULTATIONS' | translate }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'CONSULTATIONS.CONSULTATION_LIST' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Patient list</h6>
+
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover table-bordered" id="consultation">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Cin</th>
+            <th>Consultations</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let patient of patients">
+            <td>{{ patient.id }}</td>
+            <td>{{ patient.firstName }}</td>
+            <td>{{ patient.lastName }}</td>
+            <td>{{ patient.cin }}</td>
+            <td>
+              <a class="btn btn-primary btn-sm mx-1" [routerLink]="['details', patient.id]" routerLinkActive="active"><i class="fa-solid fa-memo-circle-info"></i></a>
+            </td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
